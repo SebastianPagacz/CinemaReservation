@@ -38,6 +38,6 @@ public class CreateTicketHandler(ITicketRepository ticketRepo, IShowRepository s
 
         await ticketRepo.AddAsync(newTicket);
 
-        return new Result(200, new TicketDto(newTicket.TicketStatus.ToString(), existingHall.Name, existingSeat.Coordinates));
+        return new Result(200, new TicketDto(newTicket.TicketStatus.ToString(), existingHall.Name, existingSeat.Coordinates, exisitingShow.Title, exisitingShow.ShowDate));
     }
 }

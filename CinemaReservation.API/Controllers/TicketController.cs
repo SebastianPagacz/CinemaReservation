@@ -27,4 +27,12 @@ public class TicketController(IMediator mediator) : ControllerBase
 
         return StatusCode(result.StatusCode, result.Content);
     }
+
+    [HttpGet("ticket/{showId}")]
+    public async Task<IActionResult> GetByTicketId(int showId)
+    {
+        var result = await mediator.Send(new GetTicketsByShowIdQuery(showId));
+
+        return StatusCode(result.StatusCode, result.Content);
+    }
 }

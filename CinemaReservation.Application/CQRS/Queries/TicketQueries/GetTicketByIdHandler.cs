@@ -14,6 +14,6 @@ public class GetTicketByIdHandler(ITicketRepository repository) : IRequestHandle
         if (existingTicket is null || existingTicket.IsDeleted)
             return new Result(404, $"Ticket with Id: {request.TicketId} was not found.");
 
-        return new Result(200, new TicketDto(existingTicket.TicketStatus.ToString(), existingTicket.CinemaHall.Name, existingTicket.Seat.Coordinates));
+        return new Result(200, new TicketDto(existingTicket.TicketStatus.ToString(), existingTicket.CinemaHall.Name, existingTicket.Seat.Coordinates, existingTicket.Show.Title, existingTicket.Show.ShowDate));
     }
 }

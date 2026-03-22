@@ -3,6 +3,7 @@ using CinemaReservation.Domain.Infrastrucutrel;
 using CinemaReservation.Domain.Models;
 using CinemaReservation.Domain.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Mime;
 
 namespace CinemaReservation.Domain.Repository.Implementations;
 
@@ -27,7 +28,7 @@ public class TicketRepository(AppDbContext context) : ITicketRepository
 
     public async Task<List<Ticket>> GetAsync()
     {
-        return await context.Tickets.ToListAsync();
+        return await context.Tickets.Include(t => t.Seat).Include(t => t.CinemaHall).Include(t => t.Show).ToListAsync();
     }
 
     public async Task<Ticket> GetByIdAsync(int id)
@@ -42,6 +43,11 @@ public class TicketRepository(AppDbContext context) : ITicketRepository
 
     public async Task<Ticket> GetSeatShowById(int id)
     {
-        return await context.Tickets.Include(t => t.Seat).Include(t => t.CinemaHall).FirstOrDefaultAsync(t => t.Id == id);
+        return await context.Tickets.Include(t => t.Seat).Include(t => t.CinemaHall).Include(t => t.Show).FirstOrDefaultAsync(t => t.Id == id);
+    }
+
+    public async Task<List<Ticket>> GetTicketsByShowIdAsync(int showId)
+    {
+        return await context.Tickets.Include(t => t.Seat).Include(t => t.CinemaHall).Include(t => t.Show).Where(t => t.ShowId == showId).ToListAsync();
     }
 }

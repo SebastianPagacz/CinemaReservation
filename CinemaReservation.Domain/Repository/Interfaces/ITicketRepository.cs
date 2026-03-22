@@ -10,4 +10,5 @@ public interface ITicketRepository
     Task<Ticket> PatchAsync(Ticket ticket);
     Task<bool> DeleteAsync(int id);
     Task<Ticket> GetSeatShowById(int id);
+    Task<List<Ticket>> GetTicketsByShowIdAsync(int showId);
 }
