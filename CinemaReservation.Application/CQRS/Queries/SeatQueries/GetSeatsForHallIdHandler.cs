@@ -16,6 +16,6 @@ public class GetSeatsForHallIdHandler(IHallRepository hallRepo, ISeatRepository 
 
         var seats = await seatRepo.GetByHallIdAsync(exisitingHall.Id);
 
-        return new Result(200, seats.Where(s => !s.IsDeleted).Select(s => new SeatDto(s.Coordinates)).ToList());
+        return new Result(200, seats.Where(s => !s.IsDeleted).Select(s => new SeatDto(s.Id, s.Coordinates)).ToList());
     }
 }

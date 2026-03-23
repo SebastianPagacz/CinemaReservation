@@ -2,4 +2,4 @@
 
 namespace CinemaReservation.Application.Dto;
 
-public record SeatDto(SeatCoordinates Coordinates) { }
+public record SeatDto(int SeatId, SeatCoordinates Coordinates) { }

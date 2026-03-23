@@ -1,4 +1,5 @@
 ﻿using CinemaReservation.Application.CQRS.Commands.ShowCommands;
+using CinemaReservation.Application.CQRS.Queries.HallShowQueries;
 using CinemaReservation.Application.CQRS.Queries.ShowQueries;
 using CinemaReservation.Application.Requests;
 using MediatR;
@@ -23,6 +24,14 @@ public class ShowController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var result = await mediator.Send(new GetShowByIdQuery(id));
+
+        return StatusCode(result.StatusCode, result.Content);
+    }
+
+    [HttpGet("/shows/{hallId}")]
+    public async Task<IActionResult> GetHallShows(int hallId)
+    {
+        var result = await mediator.Send(new GetHallShowsByHallIdQuery(hallId));
 
         return StatusCode(result.StatusCode, result.Content);
     }

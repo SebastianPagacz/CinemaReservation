@@ -14,7 +14,7 @@ public class GetHallSeatsHandler(IHallRepository repository) : IRequestHandler<G
         if (exisitngHall is null || exisitngHall.IsDeleted)
             return new Result(404, $"Cinema hall with Id: {request.Id} was not found.");
 
-        var seatsDto = exisitngHall.Seats.Where(s => !s.IsDeleted).Select(s => new SeatDto(s.Coordinates)).ToList();
+        var seatsDto = exisitngHall.Seats.Where(s => !s.IsDeleted).Select(s => new SeatDto(s.Id, s.Coordinates)).ToList();
 
         return new Result (200, new HallSeatDto(exisitngHall.Name, seatsDto));
     }
